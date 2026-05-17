@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dynamic Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="weather-body" class="sunny-bg">
+    <div id="dynamic-effects">
+      <!-- Дефолтное солнце при старте страницы -->
+      <div class="sun-element"></div>
+    </div>
+
+    <div class="weather-card">
+      <h2>Weather App</h2>
+      <!-- Исправленный контейнер для выравнивания -->
+      <div class="search-box">
+        <input type="text" id="city-input" placeholder="Enter city name..." />
+        <button id="search-btn">Search</button>
+      </div>
+
+      <div id="weather-info">
+        <h3 id="city-name"></h3>
+        <p id="temperature"></p>
+        <p id="description"></p>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

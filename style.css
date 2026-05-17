@@ -1,0 +1,217 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  background-color: #0a0a12;
+  transition: background 1.5s ease;
+}
+
+/* ☀️ НЕОНОВОЕ СОЛНЦЕ */
+.sunny-bg {
+  background-color: #0d0902;
+}
+.sun-element {
+  position: absolute;
+  top: 12%;
+  right: 15%;
+  width: 100px;
+  height: 100px;
+  background: #ffaa00;
+  border-radius: 50%;
+  box-shadow:
+    0 0 40px #ffaa00,
+    0 0 80px #ff5500,
+    0 0 150px #ff2200;
+  animation: neonPulse 2s infinite alternate;
+}
+
+/* ☁️ НЕОНОВЫЕ ТУЧИ */
+.cloudy-bg {
+  background-color: #05020d;
+}
+.cloud-element {
+  position: absolute;
+  background: #9b51e0;
+  border-radius: 100px;
+  width: 220px;
+  height: 70px;
+  top: 15%;
+  left: 10%;
+  box-shadow:
+    0 0 30px #9b51e0,
+    0 0 60px #2f80ed;
+  filter: blur(8px);
+}
+
+/* 🌧️ НЕОНОВЫЙ ДОЖДЬ И НАМОКАНИЕ */
+.rainy-bg {
+  background-color: #020b0d;
+}
+.rain-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.rain-drop {
+  position: absolute;
+  background: linear-gradient(transparent, #00f2fe);
+  width: 2px;
+  height: 30px;
+  box-shadow: 0 0 10px #00f2fe;
+  animation: fall 0.8s linear infinite;
+}
+@keyframes fall {
+  0% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* ⚡ ЭФФЕКТ МОЛНИИ (ГРОЗА) */
+.thunder-bg {
+  background-color: #030307;
+  animation: lightningFlash 4s ease-in-out infinite;
+}
+@keyframes lightningFlash {
+  0%,
+  94%,
+  98%,
+  100% {
+    background-color: #030307;
+    filter: brightness(1);
+  }
+  95%,
+  97% {
+    background-color: #3a3a5e;
+    filter: brightness(2);
+    box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* 🌈 НЕОНОВАЯ РАДУГА */
+.rainbow-element {
+  position: absolute;
+  top: 5%;
+  width: 500px;
+  height: 250px;
+  border: 6px solid transparent;
+  border-radius: 500px 500px 0 0;
+  /* Неоновые светящиеся полосы радуги */
+  border-top-color: #ff0055;
+  filter: drop-shadow(0 0 15px #ff0055) drop-shadow(0 0 30px #00ffcc);
+  opacity: 0.6;
+  z-index: 1;
+  animation: rainbowFade 3s ease-in-out;
+}
+@keyframes rainbowFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@keyframes neonPulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.04);
+  }
+}
+
+/* ФУТУРИСТИЧЕСКАЯ НЕОНОВАЯ КАРТОЧКА */
+.weather-card {
+  background: rgba(10, 10, 20, 0.75);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 2px solid #00f2fe;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+  text-align: center;
+  width: 340px;
+  z-index: 10;
+  color: #ffffff;
+  box-sizing: border-box;
+  transition: all 1s ease;
+}
+
+.weather-card h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #00f2fe;
+  text-shadow: 0 0 10px #00f2fe;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+input {
+  padding: 14px;
+  flex: 1;
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  background: #121224;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  color: #fff;
+}
+input:focus {
+  border-color: #00f2fe;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+}
+
+button {
+  padding: 14px 22px;
+  background: linear-gradient(45deg, #00f2fe, #4facfe);
+  color: #0a0a12;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+  text-transform: uppercase;
+}
+button:hover {
+  box-shadow: 0 0 25px #00f2fe;
+  transform: translateY(-2px);
+}
+
+#weather-info {
+  margin-top: 35px;
+}
+#city-name {
+  font-size: 26px;
+  font-weight: 600;
+}
+#temperature {
+  font-size: 52px;
+  font-weight: 800;
+  margin: 15px 0;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+#description {
+  font-size: 16px;
+  font-style: italic;
+  color: #a0aec0;
+}
