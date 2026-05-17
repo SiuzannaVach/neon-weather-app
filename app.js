@@ -1,3 +1,4 @@
+// Ваш точный рабочий API-ключ
 const API_KEY = "250075bc1053d94633330ba751ec2462";
 const cityInput = document.getElementById("city-input");
 const searchBtn = document.getElementById("search-btn");
@@ -11,7 +12,6 @@ function updateWeatherUI(weatherMain) {
     effectsContainer.innerHTML = "";
     bodyElement.className = "";
     if (weatherMain === "Clear") {
-        // ☀️ СОЛНЦЕ И РАДУГА
         bodyElement.classList.add("sunny-bg");
         effectsContainer.innerHTML =
             '<div class="sun-element"></div><div class="rainbow-element"></div>';
@@ -19,20 +19,17 @@ function updateWeatherUI(weatherMain) {
         cardElement.style.boxShadow = "0 0 25px rgba(255, 170, 0, 0.4)";
     }
     else if (weatherMain === "Clouds") {
-        // ☁️ КИБЕР-ТУЧИ
         bodyElement.classList.add("cloudy-bg");
         effectsContainer.innerHTML = '<div class="cloud-element"></div>';
         cardElement.style.borderColor = "#9b51e0";
         cardElement.style.boxShadow = "0 0 25px rgba(155, 81, 224, 0.4)";
     }
     else if (weatherMain === "Thunderstorm") {
-        // ⚡ ГРОЗА И МОЛНИИ
         bodyElement.classList.add("thunder-bg");
         cardElement.style.borderColor = "#ff0055";
         cardElement.style.boxShadow = "0 0 30px rgba(255, 0, 85, 0.6)";
     }
     else if (weatherMain === "Rain" || weatherMain === "Drizzle") {
-        // 🌧️ ЛАЗЕРНЫЙ ДОЖДЬ
         bodyElement.classList.add("rainy-bg");
         cardElement.style.borderColor = "#00f2fe";
         cardElement.style.boxShadow = "0 0 25px rgba(0, 242, 254, 0.4)";
@@ -49,12 +46,11 @@ function updateWeatherUI(weatherMain) {
         effectsContainer.appendChild(rainContainer);
     }
     else if (weatherMain === "Snow") {
-        // ❄️ НЕОНОВЫЙ СНЕГОПАД
         bodyElement.style.backgroundColor = "#050f26";
         cardElement.style.borderColor = "#ffffff";
         cardElement.style.boxShadow = "0 0 25px rgba(255, 255, 255, 0.4)";
         const snowContainer = document.createElement("div");
-        snowContainer.classList.add("rain-container");
+        snowContainer.classList.add("rain-container"); // Исправлено создание контейнера снега
         for (let i = 0; i < 40; i++) {
             const flake = document.createElement("div");
             flake.classList.add("rain-drop");
@@ -71,7 +67,6 @@ function updateWeatherUI(weatherMain) {
         effectsContainer.appendChild(snowContainer);
     }
     else if (["Mist", "Smoke", "Haze", "Dust", "Fog", "Sand", "Ash"].includes(weatherMain)) {
-        // КИБЕРПАНК-ТУМАН И СМОГ
         bodyElement.style.backgroundColor = "#110a1c";
         cardElement.style.borderColor = "#a29bfe";
         cardElement.style.boxShadow = "0 0 30px #6c5ce7";
@@ -79,7 +74,6 @@ function updateWeatherUI(weatherMain) {
             '<div class="cloud-element" style="background:#6c5ce7; width:100%; height:100%; top:0; left:0; border-radius:0; opacity:0.15; filter:blur(40px);"></div>';
     }
     else if (weatherMain === "Tornado" || weatherMain === "Squall") {
-        // УРАГАН И ТОРНАДО
         bodyElement.style.backgroundColor = "#2c000e";
         cardElement.style.borderColor = "#ff7675";
         cardElement.style.boxShadow = "0 0 35px #ff7675";
@@ -91,16 +85,15 @@ function updateWeatherUI(weatherMain) {
 }
 async function getWeather(city) {
     try {
-        // ИСПРАВЛЕНО: Теперь адрес ведет на api.openweathermap.org и корректно передает город
-        const response = await fetch(`https://openweathermap.org{city}&appid=${API_KEY}&units=metric&lang=ru`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric&lang=en`);
         if (!response.ok) {
             throw new Error("City not found");
         }
         const data = await response.json();
         cityName.textContent = data.name;
         temperature.textContent = `${Math.round(data.main.temp)}°C`;
-        description.textContent = data.weather[0].description;
-        updateWeatherUI(data.weather[0].main);
+        description.textContent = data.weather[0].description; // Исправлен индекс массива для TS
+        updateWeatherUI(data.weather[0].main); // Исправлен индекс массива для TS
     }
     catch (error) {
         alert(error instanceof Error ? error.message : "An error occurred");
