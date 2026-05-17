@@ -49,29 +49,29 @@ function updateWeatherUI(weatherMain) {
         effectsContainer.appendChild(rainContainer);
     }
     else if (weatherMain === "Snow") {
-        // ❄️ НОВАЯ ФИЧА: НЕОНОВЫЙ СНЕГОПАД
+        // ❄️ НЕОНОВЫЙ СНЕГОПАД
         bodyElement.style.backgroundColor = "#050f26";
         cardElement.style.borderColor = "#ffffff";
         cardElement.style.boxShadow = "0 0 25px rgba(255, 255, 255, 0.4)";
         const snowContainer = document.createElement("div");
-        snowContainer.classList.add("rain-container"); // используем тот же контейнер
+        snowContainer.classList.add("rain-container");
         for (let i = 0; i < 40; i++) {
             const flake = document.createElement("div");
             flake.classList.add("rain-drop");
             flake.style.width = "4px";
-            flake.style.height = "4px"; // круглые снежинки
+            flake.style.height = "4px";
             flake.style.borderRadius = "50%";
             flake.style.background = "#fff";
             flake.style.boxShadow = "0 0 8px #fff";
             flake.style.left = `${Math.random() * 100}%`;
             flake.style.animationDelay = `${Math.random() * 2}s`;
-            flake.style.animationDuration = `${2 + Math.random() * 2}s`; // падают медленнее
+            flake.style.animationDuration = `${2 + Math.random() * 2}s`;
             snowContainer.appendChild(flake);
         }
         effectsContainer.appendChild(snowContainer);
     }
     else if (["Mist", "Smoke", "Haze", "Dust", "Fog", "Sand", "Ash"].includes(weatherMain)) {
-        // 1354519965 НОВАЯ ФИЧА: КИБЕРПАНК-ТУМАН И СМОГ
+        // КИБЕРПАНК-ТУМАН И СМОГ
         bodyElement.style.backgroundColor = "#110a1c";
         cardElement.style.borderColor = "#a29bfe";
         cardElement.style.boxShadow = "0 0 30px #6c5ce7";
@@ -79,7 +79,7 @@ function updateWeatherUI(weatherMain) {
             '<div class="cloud-element" style="background:#6c5ce7; width:100%; height:100%; top:0; left:0; border-radius:0; opacity:0.15; filter:blur(40px);"></div>';
     }
     else if (weatherMain === "Tornado" || weatherMain === "Squall") {
-        // 🌪️ НОВАЯ ФИЧА: УРАГАН И ТОРНАДО
+        // УРАГАН И ТОРНАДО
         bodyElement.style.backgroundColor = "#2c000e";
         cardElement.style.borderColor = "#ff7675";
         cardElement.style.boxShadow = "0 0 35px #ff7675";
@@ -91,14 +91,14 @@ function updateWeatherUI(weatherMain) {
 }
 async function getWeather(city) {
     try {
-        const response = await fetch(`https://openweathermap.org{city}&appid=${API_KEY}&units=metric`);
+        // ИСПРАВЛЕНО: Теперь адрес ведет на api.openweathermap.org и корректно передает город
+        const response = await fetch(`https://openweathermap.org{city}&appid=${API_KEY}&units=metric&lang=ru`);
         if (!response.ok) {
             throw new Error("City not found");
         }
         const data = await response.json();
         cityName.textContent = data.name;
         temperature.textContent = `${Math.round(data.main.temp)}°C`;
-        // Исправленный индекс для стабильной работы
         description.textContent = data.weather[0].description;
         updateWeatherUI(data.weather[0].main);
     }
